@@ -25,8 +25,7 @@ app.get("/uploads/:id", (req, resp) => {
 });
 
 app.delete("/uploads/:id", (req, resp) => {
-  fs.unlinkSync(`./tmp/${req.params.id}`);
-  resp.send(200);
+  resp.send(403);
 });
 
 app.get("/uploads/", (req, resp) => {
