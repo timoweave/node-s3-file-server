@@ -1,6 +1,37 @@
 Introduction
 ============
-File upload/download server
+Node File Server to upload to and download from aws s3
+
+Installation
+============
+
+build and run locally, follow the steps:
+
+1. run `npm clone <github-url>`
+1. run `npm install`
+1. run `npm start`
+1 .run `open localhost:8001`
+
+access deploy host
+
+1. run `open <aws-url>`
+
+All Design / Architectural / Technical decisions
+================================================
+
+There are few design decision about this api.
+
+1. for additional requirement, we pick the `Add an endpoint that returns a list of all files in the system, their identifier, original filename, and byte size of the file.`
+1. we use `express router` allow us to retarget the endpoint, such as `/api/files`.
+1. we use `s3` because it offer acl, permission, cloud storage, et., In
+   this case we use `metadata` to keep track of the original file and
+   mimetype, so that we don't have to create a database to track those
+   item. the `s3` keys are all in `config.js`.
+1. we use multer-s3 here, but we could also use the multer with memoryStorage and use s3.upload directly,
+   see `storage.js` for more info.
+1. the api is design to be `CRUD` like, so one can create, retrieve, and delete (except update)
+   see `Makefile` for more example
+1. the web page `uploads.html` is very simple, it only has input file required validation check.
 
 Routes
 ======
@@ -24,21 +55,4 @@ Besides, using postman app or html web app, one can use command line tool `curl`
 1. `curl -X GET localhost:8001/uploads`
 1. `curl -X GET localhost:8001/uploads/:id`
 1. `curl -X GET localhost:8001/uploads/:id/content -o file.png`
-
-
-Design
-======
-There are few design decision about this api.
-
-1. we use `express router` allow us to retarget the endpoint, such as `/api/files`.
-1. we use `s3` because it offer acl, permission, cloud storage, et., In
-   this case we use `metadata` to keep track of the original file and
-   mimetype, so that we don't have to create a database to track those
-   item. the `s3` keys are all in `config.js`.
-1. we use multer-s3 here, but we could also use the multer with memoryStorage and use s3.upload directly,
-   see `storage.js` for more info.
-1. the api is design to be `CRUD` like, so one can create, retrieve, and delete (except update)
-   see `Makefile` for more example
-1. the web page `uploads.html` is very simple, it only has input file required validation check.
-
 
