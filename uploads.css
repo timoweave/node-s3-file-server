@@ -1,0 +1,28 @@
+* {
+    font-family: sans-serif;
+}
+
+.form-container {
+    width: 50%;
+    margin: 100px auto;
+    padding: 3rem 3rem;    
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 50px 50px 50px;
+    grid-template-areas: "header"
+                         "file" "submit"
+}
+
+.form-container h4 {
+    grid-area: header;
+    justify-self: center;
+}
+
+.form-container input {
+    grid-area: file;
+}
+
+.form-container button {
+    grid-area: submit;
+}

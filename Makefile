@@ -1,20 +1,17 @@
 
-test_uploads:
+rm_simpsons:
+# copy manually to run at the terminal # problem with bash $ vs make $
+# for key in `curl -X GET localhost:8001/uploads/keys`; do curl -X DELETE localhost:8001/uploads/$key; done
+
+add_simpsons:
+	curl -X POST \
+		-F "uploads=@samples/homer_simpson.png;type=image/png" \
+		-F "uploads=@samples/marge_simpson.png;type=image/png" \
+		-F 'uploads=@samples/bart_simpson.png;type=image/png' \
+		-F 'uploads=@samples/lisa_simpson.png;type=image/png' \
+		-F 'uploads=@samples/maggie_simpson.png;type=image/png' \
+		localhost:8001/uploads 
+
+list_simpsons:
 	curl -X GET localhost:8001/uploads
 
-test_upload1:
-	curl -X POST -F 'uploads=@samples/lisa_simpson.png;type=image/png' localhost:8001/uploads
-	@printf "\nlist uploads directory"
-	ls ./tmp
-
-test_upload2:
-	curl -X POST -F 'uploads=@samples/lisa_simpson.png;type=image/png' -F 'uploads=@samples/lisa_simpson.png;type=image/png' localhost:8001/uploads
-	@printf "\nlist upload directory"
-	ls ./tmp
-test_upload3:
-	curl -X POST -F 'uploads=@samples/lisa_simpson.png;type=image/png' -F 'uploads=@samples/lisa_simpson.png;type=image/png' -F 'uploads=@samples/maggie_simpson.png;type=image/png' localhost:8001/uploads
-	@printf "\nlist upload directory"
-	ls ./tmp
-
-clean_uploads:
-	rm -f ./tmp/*

@@ -1,32 +1,35 @@
 const express = require("express");
-const multer = require("multer");
-const fs = require("fs");
+const path = require("path");
+const {
+  add_s3_files,
+  get_s3_file,
+  list_s3_id,
+  list_s3_ids,
+  delete_s3_file,
+} = require("./storage.js");
 
-const app = express.Router();
+const router = express.Router();
 
-const uploads = multer({
-  storage: multer.diskStorage({
-    destination: (req, file, cb) => cb(null, "./tmp"),
-  }),
+router.post("/", add_s3_files, (req, resp) => {
+  resp.json({ids: req.files.map(f => f.key)});
 });
 
-app.post("/", uploads.array("uploads", 10), (req, resp) => {
-  console.log({files: req.files, body: req.body});
-  resp.json({file_ids: req.files.map(f => f.filename)});
+router.delete("/:id", delete_s3_file, (req, resp) => {
+  resp.send(200);
 });
 
-app.get("/:id", (req, resp) => {
-  resp.download(`./tmp/${req.params.id}`);
+router.get("/keys", list_s3_ids, (req, resp) => {
+  resp.send(resp.ids.map(i => i.Key).join("\n"));
 });
 
-app.delete("/:id", (req, resp) => {
-  resp.send(403);
+router.get("/:id/content", get_s3_file);
+
+router.get("/:id", list_s3_id, (req, resp) => {
+  resp.json({id: resp.id});
 });
 
-app.get("/", (req, resp) => {
-  fs.readdir("./tmp", (err, files) => {
-    resp.json({file_ids: files});
-  });
+router.get("/", list_s3_ids, (req, resp) => {
+  resp.json({ids: resp.ids});
 });
 
-module.exports = app;
+module.exports = router;
