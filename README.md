@@ -7,12 +7,19 @@ Installation
 
 build and run locally, follow the steps:
 
-1. run `npm clone <github-url>`
+1. run `git clone https://github.com/timoweave/node-s3-file-server.git`
+1. run `cd node-s3-file-server`
 1. run `npm install`
 1. run `npm start`
-1 .run `open localhost:8001`
+1. run `curl localhost:80001/uploads` or `open localhost:8001/uploads.html` (see Example section below)
 
-access deploy host
+run container locally
+
+1. run `docker pull timoweave/node-s3-file-server`
+1. run `docker container -idt -p 8001:8001  timoweave/node-s3-file-server`
+1. run `curl localhost:80001/uploads` or `open localhost:8001/uploads.html` (see Example section below)
+
+open aws ecs
 
 1. run `open <aws-url>`
 
