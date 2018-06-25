@@ -3,10 +3,10 @@ Introduction
 Node File Server to upload to and download from aws s3
 
 Get a list of uploaded files
-![](screenshots/Screenshot_2018-06-25_16.25.26.pngScreenshot_2018-06-25_16.25.26.png)
+![](screenshots/Screenshot_2018-06-25_16.25.26.png)
 
 Simple Upload.html
-![](screenshots/Screenshot_2018-06-25_16.25.26.pngScreenshot_2018-06-25_16.25.32.png)
+![](screenshots/Screenshot_2018-06-25_16.25.32.png)
 
 Installation
 ============
