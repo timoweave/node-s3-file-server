@@ -61,13 +61,13 @@ const list_s3_ids = (req, resp, next) =>
         next(err);
         return;
       }
-      const metadata_promise = data.Contents.map(c => c.Key).map(
-        key =>
+      const metadata_promise = data.Contents.map(
+        ({Key, Size}) =>
           new Promise((resolve, reject) =>
-            s3.headObject({Bucket: config.bucket, Key: key}, (err, data) => {
+            s3.headObject({Bucket: config.bucket, Key}, (err, data) => {
               if (err) {
                 reject(err);
-              } else resolve({Key: key, ...data.Metadata});
+              } else resolve({Key, Size, ...data.Metadata});
             }),
           ),
       );
