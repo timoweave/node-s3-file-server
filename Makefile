@@ -1,7 +1,6 @@
 
 rm_simpsons:
-# copy manually to run at the terminal # problem with bash $ vs make $
-# for key in `curl -X GET localhost:8001/uploads/keys`; do curl -X DELETE localhost:8001/uploads/$key; done
+	for k in `curl -X GET localhost:8001/uploads/keys`; do curl -X DELETE localhost:8001/uploads/$k; done
 
 add_simpsons:
 	curl -X POST \
